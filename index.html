@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body data-barba="wrapper">
     <header class="nav-header">
         <h1><a href="./index.html" id="logo">Days.</a></h1>
         <div class="burger">
@@ -18,7 +18,7 @@
             <div class="line2"></div>
         </div>
     </header>
-    <main>
+    <main data-barba="container" data-barba-namespace="home">
         <section class="mountain slide">
             <div class="hero-img">
                 <img src="./img/forest.png" alt="forest image">
@@ -46,7 +46,7 @@
                     <div class="title-swipe t-swipe2"></div>
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eveniet atque fugiat excepturi dolores natus vitae recusandae sed nisi. Numquam in vero adipisci vel dignissimos excepturi ipsum aliquid doloremque aliquam!</p>
-                <a class="explore hike-exp">Explore</a>
+                <a href="./hiking/index.html" class="explore hike-exp" data-barba="link">Explore</a>
                 <div class="reveal-text"></div>
             </div>
         </section>
@@ -62,7 +62,7 @@
                     <div class="title-swipe t-swipe3"></div>
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus eveniet atque fugiat excepturi dolores natus vitae recusandae sed nisi. Numquam in vero adipisci vel dignissimos excepturi ipsum aliquid doloremque aliquam!</p>
-                <a href="./fashion/index.html" class="explore fashion-exp" target="_blank">Explore</a>
+                <a href="./fashion/index.html" class="explore fashion-exp" data-barba="link">Explore</a>
                 <div class="reveal-text"></div>
             </div>
         </section>

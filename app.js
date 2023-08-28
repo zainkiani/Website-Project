@@ -1,5 +1,6 @@
 let controller;
 let slideScene;
+let detailScene;
 
 function animateSlides(){
     // init controller 
@@ -80,9 +81,94 @@ function navToggle(e){
     document.body.classList.remove("hide");
     }
 }
+// barba stuff
+const logo = document.querySelector("#logo");
+barba.init({
+    views:[
+        {
+            namespace: "home",
+            beforeEnter(){
+                animateSlides();
+                logo.href= "./index.html";
+            },
+            beforeLeave(){
+                slideScene.destroy();
+                pageScene.destroy();
+                controller.destroy();
+            }
+        },
+        {
+            namespace:"fashion",
+            beforeEnter(){
+                logo.href= "../index.html";
+                animateDetails();
+            }
+        },
+        {
+            namespace:'hiking',
+            beforeEnter(){
+                logo.href= "../index.html";
+                animateDetails();
+            }
+        }
+    ],
+    transitions:[
+        {
+            leave({current,next}){
+                let done = this.async();
+                
+                const tl = gsap.timeline({defaults: {ease:"power2.inOut"}});
+                tl.fromTo(current.container,1,{opacity:1},{opacity:0, onComplete: done});
+                tl.fromTo(".swipe", 0.75,{x:"-100%"},{x:"0%",onComplete:done},"-=0.5");
+            },
+            enter({current,next}){
+                let done = this.async();
+                window.scrollTo(0,0); //scroll to the top
+                const tl = gsap.timeline({defaults: {ease:"power2.inOut"}});
+                tl.fromTo(".swipe", 0.75,{x:"0%"},{x:"100%",stagger:0.25,onComplete:done},);
+                tl.fromTo(next.container,1,{opacity:0},{opacity:1});
+                
+            }
+        }
+    ]
+});
 
+function animateDetails(){
+     controller = new ScrollMagic.Controller;
+     const slides = document.querySelectorAll(".detail-slide");
+     slides.forEach((slide,index,slides)=>{
+        const slideTl = gsap.timeline({defaults:{duration:1}});
+        let nextSlide = slides.length -1 ===index ? "end" :slides[index + 1];
+        const nextImg = nextSlide.querySelector("img");
+        slideTl.fromTo(slide,{opacity:1},{opacity:0});
+        slideTl.fromTo(nextSlide,{opacity:0},{opacity:1},"-=1")
+        slideTl.fromTo(slide,{scale:"1"},{scale:"0"},"-=0.75")
+        
+        
+
+        // Scene
+        detailScene = new ScrollMagic.Scene({
+            triggerElement: slide,
+            duration:"100%",
+            triggerHook:0.1
+        })
+        .setPin(slide,{pushFollowers:false})
+        .setTween(slideTl)
+        .addTo(controller)
+        // .addIndicators({
+        //         colorStart:"white",
+        //         colorTrigger:"white",
+        //         name:"slide"});
+
+     });
+
+}
+
+
+
+//event listeners
 window.addEventListener("mousemove",cursor);
 window.addEventListener("mouseover", activeCursor);
 burger.addEventListener("click", navToggle);
 
-animateSlides();
+// animateSlides();
