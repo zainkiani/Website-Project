@@ -286,7 +286,7 @@ main{
 
 @media screen and (max-width: 1500px) {
     .hero-img{
-        height: 50vh;
+        height: 60vh;
     }
     .fashion-text h1{
         font-size: 2rem;
